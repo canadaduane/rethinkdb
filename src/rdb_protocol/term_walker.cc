@@ -171,6 +171,7 @@ private:
         case Term::MAX:
         case Term::UNION:
         case Term::NTH:
+        case Term::BRACKET:
         case Term::ARGS:
         case Term::LIMIT:
         case Term::SKIP:
@@ -335,6 +336,7 @@ private:
         case Term::DISTINCT:
         case Term::UNION:
         case Term::NTH:
+        case Term::BRACKET:
         case Term::LIMIT:
         case Term::SKIP:
         case Term::ZIP:
