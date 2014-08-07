@@ -55,8 +55,11 @@
 // one account for writes, and one account for reads.
 // By adjusting the priorities of these accounts, reads
 // can be prioritized over writes or the other way around.
-#define CACHE_READS_IO_PRIORITY                   (512 / CPU_SHARDING_FACTOR)
-#define CACHE_WRITES_IO_PRIORITY                  (64 / CPU_SHARDING_FACTOR)
+#define COMBINED_CACHE_READS_IO_PRIORITY          512
+// RSI: Remove CACHE_READS_IO_PRIORITY, CACHE_WRITES_IO_PRIORITY.
+#define CACHE_READS_IO_PRIORITY                   (COMBINED_CACHE_READS_IO_PRIORITY / CPU_SHARDING_FACTOR)
+#define COMBINED_CACHE_WRITES_IO_PRIORITY         64
+#define CACHE_WRITES_IO_PRIORITY                  (COMBINED_CACHE_WRITES_IO_PRIORITY / CPU_SHARDING_FACTOR)
 
 // The cache priority to use for secondary index post construction
 // 100 = same priority as all other read operations in the cache together.
