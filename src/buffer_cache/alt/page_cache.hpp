@@ -41,6 +41,10 @@ enum class page_create_t { no, yes };
 }  // namespace alt
 
 struct cache_io_priorities_t {
+    static cache_io_priorities_t unittest_no_sharding() {
+        // For unit tests, just say there's no CPU sharding.
+        return cache_io_priorities_t(1);
+    }
     explicit cache_io_priorities_t(int cpu_sharding_factor)
         : cache_reads_io_priority(COMBINED_CACHE_READS_IO_PRIORITY / cpu_sharding_factor),
           cache_writes_io_priority(COMBINED_CACHE_WRITES_IO_PRIORITY / cpu_sharding_factor) { }

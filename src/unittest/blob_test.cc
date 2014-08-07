@@ -292,8 +292,8 @@ TPTEST(BlobTest, all_tests) {
             &get_global_perfmon_collection());
 
     dummy_cache_balancer_t balancer(GIGABYTE);
-    cache_t cache(cache_io_priorities_t(CPU_SHARDING_FACTOR), &log_serializer,
-                  &balancer, &get_global_perfmon_collection());
+    cache_t cache(cache_io_priorities_t::unittest_no_sharding(),
+                  &log_serializer, &balancer, &get_global_perfmon_collection());
 
     run_tests(&cache);
 }

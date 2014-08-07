@@ -53,7 +53,7 @@ public:
     test_cache_t(serializer_t *serializer,
                  cache_balancer_t *balancer,
                  alt_txn_throttler_t *throttler)
-        : page_cache_t(cache_io_priorities_t(CPU_SHARDING_FACTOR),
+        : page_cache_t(cache_io_priorities_t::unittest_no_sharding(),
                        serializer, balancer, throttler),
           throttler_(throttler) { }
 
