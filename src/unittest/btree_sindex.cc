@@ -32,7 +32,8 @@ TPTEST(BTreeSindex, LowLevelOps) {
         &file_opener,
         &get_global_perfmon_collection());
 
-    cache_t cache(&serializer, &balancer, &get_global_perfmon_collection());
+    cache_t cache(cache_io_priorities_t(CPU_SHARDING_FACTOR),
+                  &serializer, &balancer, &get_global_perfmon_collection());
     cache_conn_t cache_conn(&cache);
 
     {

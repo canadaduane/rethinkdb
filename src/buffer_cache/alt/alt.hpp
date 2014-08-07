@@ -40,7 +40,8 @@ private:
 
 class cache_t : public home_thread_mixin_t {
 public:
-    explicit cache_t(serializer_t *serializer,
+    explicit cache_t(cache_io_priorities_t cache_io_priorities,
+                     serializer_t *serializer,
                      cache_balancer_t *balancer,
                      perfmon_collection_t *perfmon_collection);
     ~cache_t();

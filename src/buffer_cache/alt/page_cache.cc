@@ -191,7 +191,8 @@ public:
     new_mutex_t mutex;
 };
 
-page_cache_t::page_cache_t(serializer_t *serializer,
+page_cache_t::page_cache_t(cache_io_priorities_t cache_io_priorities,
+                           serializer_t *serializer,
                            cache_balancer_t *balancer,
                            alt_txn_throttler_t *throttler)
     : max_block_size_(serializer->max_block_size()),
@@ -213,8 +214,8 @@ page_cache_t::page_cache_t(serializer_t *serializer,
             local_read_ahead_cb = new page_read_ahead_cb_t(serializer, this);
         }
         default_reads_account_.init(serializer->home_thread(),
-                                    serializer->make_io_account(CACHE_READS_IO_PRIORITY));
-        writes_io_account_.init(serializer->make_io_account(CACHE_WRITES_IO_PRIORITY));
+                                    serializer->make_io_account(cache_io_priorities.cache_reads_io_priority));
+        writes_io_account_.init(serializer->make_io_account(cache_io_priorities.cache_writes_io_priority));
         index_write_sink_.init(new page_cache_index_write_sink_t);
         recencies_ = serializer->get_all_recencies();
     }

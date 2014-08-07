@@ -40,6 +40,15 @@ enum class page_create_t { no, yes };
 
 }  // namespace alt
 
+struct cache_io_priorities_t {
+    explicit cache_io_priorities_t(int cpu_sharding_factor)
+        : cache_reads_io_priority(COMBINED_CACHE_READS_IO_PRIORITY / cpu_sharding_factor),
+          cache_writes_io_priority(COMBINED_CACHE_WRITES_IO_PRIORITY / cpu_sharding_factor) { }
+    int cache_reads_io_priority;
+    int cache_writes_io_priority;
+};
+
+
 enum class alt_create_t { create };
 
 class cache_conn_t {
@@ -309,7 +318,8 @@ class page_cache_index_write_sink_t;
 
 class page_cache_t : public home_thread_mixin_t {
 public:
-    page_cache_t(serializer_t *serializer,
+    page_cache_t(cache_io_priorities_t cache_io_priorities,
+                 serializer_t *serializer,
                  cache_balancer_t *balancer,
                  alt_txn_throttler_t *throttler);
     ~page_cache_t();

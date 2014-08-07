@@ -251,7 +251,8 @@ void persistent_file_t<metadata_t>::construct_serializer_and_cache(const bool cr
 
     {
         balancer.init(new dummy_cache_balancer_t(MEGABYTE));
-        cache.init(new cache_t(serializer.get(), balancer.get(), perfmon_parent));
+        cache.init(new cache_t(cache_io_priorities_t(CPU_SHARDING_FACTOR),
+                               serializer.get(), balancer.get(), perfmon_parent));
         cache_conn.init(new cache_conn_t(cache.get()));
     }
 

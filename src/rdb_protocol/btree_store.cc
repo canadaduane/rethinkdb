@@ -74,7 +74,8 @@ store_t::store_t(serializer_t *serializer,
                         ? NULL
                         : new ql::changefeed::server_t(ctx->manager))
 {
-    cache.init(new cache_t(serializer, balancer, &perfmon_collection));
+    cache.init(new cache_t(cache_io_priorities_t(CPU_SHARDING_FACTOR),
+                           serializer, balancer, &perfmon_collection));
     general_cache_conn.init(new cache_conn_t(cache.get()));
 
     if (create) {
